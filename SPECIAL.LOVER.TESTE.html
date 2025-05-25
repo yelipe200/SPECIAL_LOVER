@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>SPECIAL LOVER</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #fd5068; /* vermelho estilo Tinder */
+      --accent: #ff7854;  /* laranja estilo Tinder */
+      --background: #eee9e9;
+      --text: #1e1e1e;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Quicksand', sans-serif;
+      background: var(--background);
+      color: var(--text);
+    }
+
+    header {
+      background-color: #000;
+      padding: 16px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 2px solid var(--primary);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .logo {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      color: var(--primary);
+      font-size: 1.5rem;
+      font-weight: 700;
+    }
+
+    .logo-img {
+      width: 40px;
+      margin-top: 4px;
+    }
+
+    nav a {
+      margin-left: 20px;
+      text-decoration: none;
+      color: white;
+      font-weight: 600;
+      transition: opacity 0.3s;
+    }
+
+    nav a:hover {
+      opacity: 0.7;
+    }
+
+    .hero {
+      text-align: center;
+      padding: 60px 20px 30px;
+    }
+
+    .hero h1 {
+      font-size: 2.8rem;
+      color: var(--primary);
+      margin-bottom: 10px;
+    }
+
+    .hero p {
+      font-size: 1.2rem;
+      max-width: 600px;
+      margin: auto;
+      color: #444;
+    }
+
+    .quiz, .intro {
+      max-width: 700px;
+      margin: 40px auto;
+      padding: 24px;
+      background-color: #f7f7f7;
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    .quiz h2, .intro h2 {
+      color: var(--accent);
+      margin-bottom: 20px;
+    }
+
+    .question {
+      margin-bottom: 20px;
+    }
+
+    button {
+      padding: 12px 20px;
+      margin: 10px;
+      border: none;
+      border-radius: 8px;
+      background-color: var(--primary);
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    button:hover {
+      opacity: 0.85;
+    }
+
+    #resultado {
+      margin-top: 20px;
+      font-weight: bold;
+      font-size: 1.1rem;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="logo">
+      SPECIAL LOVER
+      <img src="LOGO.TEA.jpeg" alt="Logo" class="logo-img">
+    </div>
+    <nav>
+      <a href="#">Entrar</a>
+      <a href="#">Criar Conta</a>
+    </nav>
+  </header>
+
+  <div class="hero">
+    <h1>Um amor SPECIAL para pessoas especiais</h1>
+    <p>Feito com carinho para pessoas no espectro autista encontrarem conexões verdadeiras.</p>
+  </div>
+
+  <section class="quiz">
+    <h2>Encontre o seu tipo</h2>
+    <div id="quiz-container">
+      <div class="question" id="pergunta-1">
+        <p>1. Você gosta mais de:</p>
+        <button onclick="responder(this, 1, 'A')">Ambientes calmos</button>
+        <button onclick="responder(this, 1, 'B')">Ambientes agitados</button>
+      </div>
+      <div class="question" id="pergunta-2" style="display:none;">
+        <p>2. Você prefere:</p>
+        <button onclick="responder(this, 2, 'A')">Conversas profundas</button>
+        <button onclick="responder(this, 2, 'B')">Conversas leves</button>
+      </div>
+      <div class="question" id="pergunta-3" style="display:none;">
+        <p>3. Você se sente melhor:</p>
+        <button onclick="responder(this, 3, 'A')">Sozinho</button>
+        <button onclick="responder(this, 3, 'B')">Com outras pessoas</button>
+      </div>
+      <div class="question" id="pergunta-4" style="display:none;">
+        <p>4. Você prefere atividades:</p>
+        <button onclick="responder(this, 4, 'A')">Planejadas</button>
+        <button onclick="responder(this, 4, 'B')">Espontâneas</button>
+      </div>
+      <div class="question" id="pergunta-5" style="display:none;">
+        <p>5. Quando se comunica, você:</p>
+        <button onclick="responder(this, 5, 'A')">Prefere mensagens</button>
+        <button onclick="responder(this, 5, 'B')">Prefere falar</button>
+      </div>
+    </div>
+    <div id="resultado"></div>
+  </section>
+
+  <div class="intro">
+    <h2>Por que criamos o SPECIAL LOVER?</h2>
+    <p>
+      Muitos enfrentam dificuldades únicas nos relacionamentos. Este é um lugar seguro para ser quem você é — e encontrar quem te entende de verdade.  
+      Aqui, a autenticidade é bem-vinda e o amor é construído com empatia, respeito e atenção aos detalhes que fazem a diferença.
+    </p>
+  </div>
+
+  <script>
+    let respostas = {};
+
+    function responder(botao, pergunta, resposta) {
+      respostas['p' + pergunta] = resposta;
+
+      // Esconde pergunta atual
+      document.getElementById('pergunta-' + pergunta).style.display = 'none';
+
+      // Mostra próxima pergunta
+      const proxima = document.getElementById('pergunta-' + (pergunta + 1));
+      if (proxima) {
+        proxima.style.display = 'block';
+      } else {
+        // Mostra resultado
+        let a = 0, b = 0;
+        for (let key in respostas) {
+          if (respostas[key] === 'A') a++;
+          else b++;
+        }
+        const resultado = document.getElementById('resultado');
+        if (a > b) {
+          resultado.innerText = "Você parece ser uma pessoa mais introspectiva e sensível!";
+        } else {
+          resultado.innerText = "Você parece ser uma pessoa mais extrovertida e sociável!";
+        }
+      }
+    }
+  </script>
+
+</body>
+</html>
